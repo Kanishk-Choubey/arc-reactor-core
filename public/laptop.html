@@ -1,0 +1,48 @@
+<script src="/socket.io/socket.io.js"></script>
+<script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.128.0/build/three.module.js';
+    import { GLTFLoader } from 'https://unpkg.com/three@0.128.0/examples/jsm/loaders/GLTFLoader.js';
+
+    const socket = io(); // Connect to server
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({alpha: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Light
+    const light = new THREE.DirectionalLight(0xffffff, 2);
+    light.position.set(1, 1, 1);
+    scene.add(light);
+
+    // The Object Container
+    let modelGroup = new THREE.Group();
+    scene.add(modelGroup);
+
+    // LOAD YOUR 3D MODEL HERE
+    // For now, let's use a "Holographic Cube" placeholder
+    const geometry = new THREE.BoxGeometry(2, 2, 2);
+    const material = new THREE.MeshBasicMaterial({color: 0x00ffff, wireframe: true});
+    const cube = new THREE.Mesh(geometry, material);
+    modelGroup.add(cube);
+
+    camera.position.z = 5;
+
+    // --- THE IRON MAN MAGIC ---
+    socket.on('update_model', (data) => {
+        // Real-time updates from phone!
+        if(data.type === 'rotate') {
+            modelGroup.rotation.y = data.yaw;   // Left/Right
+            modelGroup.rotation.x = data.pitch; // Up/Down
+        }
+        if(data.type === 'zoom') {
+            modelGroup.scale.setScalar(data.scale);
+        }
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+    animate();
+</script>
