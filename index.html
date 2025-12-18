@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arc Reactor Core</title>
+    <style>
+        body {
+            background-color: #050505;
+            color: #00ffff;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px #00ffff;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        p {
+            color: #aaa;
+            margin-bottom: 40px;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            border: 2px solid #00ffff;
+            padding: 20px;
+            width: 200px;
+            border-radius: 8px;
+            background: rgba(0, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+        }
+
+        .card:hover {
+            background: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 20px #00ffff;
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .card span {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .status {
+            margin-top: 50px;
+            font-size: 0.8rem;
+            color: #00ff88;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ARC REACTOR CORE</h1>
+    <p>SELECT INTERFACE MODULE</p>
+
+    <div class="container">
+        <a href="public/laptop.html" class="card">
+            <span>💻</span>
+            <h2>DISPLAY</h2>
+            <small>Launch Holo-Table</small>
+        </a>
+
+        <a href="public/phone.html" class="card">
+            <span>📱</span>
+            <h2>GAUNTLET</h2>
+            <small>Gyro Control</small>
+        </a>
+
+        <a href="public/tablet.html" class="card">
+            <span>📟</span>
+            <h2>DECK</h2>
+            <small>Touch Control</small>
+        </a>
+    </div>
+
+    <div class="status">SYSTEM ONLINE // WAITING FOR INPUT</div>
+
+</body>
+</html>
