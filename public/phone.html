@@ -1,0 +1,29 @@
+<script src="/socket.io/socket.io.js"></script>
+<button id="start" style="font-size:30px; margin-top:50%;">TAP TO CONNECT GAUNTLET</button>
+<script>
+    const socket = io();
+    
+    document.getElementById('start').onclick = () => {
+        // Request Gyro Permissions (Required on modern Android/iOS)
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            DeviceOrientationEvent.requestPermission()
+                .then(response => { if (response == 'granted') startTracking(); })
+                .catch(console.error);
+        } else {
+            startTracking();
+        }
+    };
+
+    function startTracking() {
+        document.body.style.background = "green"; // Connected!
+        
+        window.addEventListener("deviceorientation", (event) => {
+            // Send tilt data to laptop
+            socket.emit('gesture_data', {
+                type: 'rotate',
+                yaw: event.alpha * (Math.PI / 180), // Compass direction
+                pitch: event.beta * (Math.PI / 180) // Front/Back tilt
+            });
+        });
+    }
+</script>
